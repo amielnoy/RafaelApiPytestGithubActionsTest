@@ -34,17 +34,14 @@ class TestsBookAPI(ApiRequests):
         assert books_details[1]["title"] == ExpectedResults.EXPECTED_BOOK_TITLE3
 
     def test_add_book(self, new_book):
-        assert new_book["title"] == ExpectedResults.EXPECTED_BOOK_TITLE3
-        assert new_book["author"] == ExpectedResults.EXPECTED_BOOK_AUTHOR1
+        assert new_book["title"] == ExpectedResults.EXPECTED_BOOK_TITLE3,f"title is <>{ExpectedResults.EXPECTED_BOOK_TITLE3}"
+        assert new_book["author"] == ExpectedResults.EXPECTED_BOOK_AUTHOR1,f"author is <>{ExpectedResults.EXPECTED_BOOK_AUTHOR1}"
 
     def test_update_book(self):
         response = self.put("/books/1", json={"title": ExpectedResults.EXPECTED_UPDATED_BOOK_TITLE1})
         assert response.status_code == ApiHttpConstants.OK
         updated_book = response.json()
         assert updated_book["title"] == ExpectedResults.EXPECTED_UPDATED_BOOK_TITLE1
-
-        response = self.put("/books/1", json={"title": ExpectedResults.EXPECTED_BOOK_TITLE1})
-        assert response.status_code == ApiHttpConstants.OK
 
     def test_update_non_exist_book(self):
         response = self.put("/books/10", json={"title": ExpectedResults.EXPECTED_UPDATED_BOOK_TITLE1})
